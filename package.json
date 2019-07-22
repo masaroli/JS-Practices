@@ -1,0 +1,24 @@
+{
+  "name": "js-practices",
+  "version": "1.0.0",
+  "description": "* npm i jquery\r * npm i p5\r * npm i matter-js",
+  "main": "index.js",
+  "dependencies": {
+    "matter-js": "^0.14.2",
+    "p5": "^0.9.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yikifp/JS-Practices.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yikifp/JS-Practices/issues"
+  },
+  "homepage": "https://github.com/yikifp/JS-Practices#readme"
+}
