@@ -1,26 +1,85 @@
-
+var vector, speed, razor, canvas;
 function setup() {
-  createCanvas(600, 600);
-  background(0);
+var canvas = createCanvas(600, 600);
   noStroke();
-  smooth()
+  smooth();
+
+
+razor = new Razor(90, 90, 160, 20)
+razor2 = new Razor(180, 90, 160, 20)
+
+rectMode(CENTER)
 }
 
 function draw(){
-  var alpha = frameCount;
-  if (alpha < 255) {
-   alpha++
+  background(0);
+/*  if (green > value) {
+   speed = speed * -1
+  } else if (green < 0){
+    speed = speed * -1
   }
-  var red =  alpha;
+  green = green + speed;
 
-  console.log(frameCount)
+*/
+razor.render()
+razor.move()
+razor2.render()
+razor2.move()
 
-if (frameCount % 5 == 0) {
-    fill(red, 0, 0, red);
+
+
+}
+
+function getRandomValue(a, b){
+
+  var r = random(0,1)
+  if(r > .5){
+    return a
+  } else{
+    return b
+  }
+}
+
+
+function Razor(x, y, w, h){
+  this.v = createVector(x,y)
+  this.w = w;
+  this.h = h;
+  this.angle = 0
+  this.colors = {
+    red:255,
+    green:0,
+    blue:0,
+    alpha:255
+  }
+
+  this.move = function(){
+    var seconds = (frameCount%60) 
+    if(seconds == 5){
+      this.angle = this.angle+=5 
+    } else if(seconds == 10){
+      this.angle = this.angle+=5       
+    } else if(seconds == 20){
+      this.angle = this.angle+=10       
+    }
+  if(this.angle > 360){
+    this.angle = 0
+  }
+  console.log(razor.angle)
+  }
+
+  this.render = function(){
     push();
-    translate(width/2, height/2);
-    rotate(radians(frameCount * 2  % 360));
-    rect(0, 0, 160, 60);
-    pop();
+    fill(this.colors.red, this.colors.green, this.colors.blue, this.colors.alpha)
+    translate(this.v.x, this.v.y);
+    rotate(radians(this.angle));
+    rect(0, 0, this.w, this.h);
+    pop();   
   }
+}
+
+var flag = true;
+function mousePressed(){
+  flag = !flag
+  !flag ? noLoop() : loop();
 }
