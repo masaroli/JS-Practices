@@ -1,12 +1,13 @@
 var vector, speed, razor, canvas;
+var razors = [];
 function setup() {
 var canvas = createCanvas(600, 600);
   noStroke();
   smooth();
 
-
-razor = new Razor(90, 90, 160, 20)
-razor2 = new Razor(180, 90, 160, 20)
+for (var i = 100; i < width; i+=100) {
+razors.push(new Razor(i, 0, 60, 20));   
+}
 
 rectMode(CENTER)
 }
@@ -21,11 +22,10 @@ function draw(){
   green = green + speed;
 
 */
-razor.render()
-razor.move()
-razor2.render()
-razor2.move()
-
+for (var i = 0; i < razors.length; i++) {
+razors[i].render();
+razors[i].move() 
+}
 
 
 }
@@ -52,20 +52,31 @@ function Razor(x, y, w, h){
     blue:0,
     alpha:255
   }
+  this.switch = [true, false, false, true]
 
   this.move = function(){
-    var seconds = (frameCount%60) 
+    var seconds = (frameCount%30) 
     if(seconds == 5){
-      this.angle = this.angle+=5 
+      this.angle = this.angle+=15 
     } else if(seconds == 10){
       this.angle = this.angle+=5       
     } else if(seconds == 20){
-      this.angle = this.angle+=10       
+      this.angle = this.angle+=15       
     }
   if(this.angle > 360){
     this.angle = 0
   }
-  console.log(razor.angle)
+
+  if(this.angle == 90 || this.angle == 270) {
+   this.switch[1] = !this.switch[1];
+   if(this.switch[1]){ 
+    this.colors.green = 255; 
+  } else {
+    this.colors.green = 0; 
+  }
+  console.log(this.switch[1])
+  }
+
   }
 
   this.render = function(){
