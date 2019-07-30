@@ -4,29 +4,32 @@ function setup() {
 var canvas = createCanvas(600, 600);
   noStroke();
   smooth();
+  var counter = 0;
 
-for (var i = 100; i < width; i+=100) {
-razors.push(new Razor(i, 0, 60, 20));   
-}
+  for (var i = 0; i < width+60; i+=20) {
+    
+    for(var j = 0; j < height+60 ; j+=20){
+        razors.push(new Razor(i, j, 25, 5));   
+    }
+  }
+
+
 
 rectMode(CENTER)
 }
 
 function draw(){
-  background(0);
-/*  if (green > value) {
-   speed = speed * -1
-  } else if (green < 0){
-    speed = speed * -1
-  }
-  green = green + speed;
+background(0);
+stroke(255);
+strokeWeight(4)
+noFill()
+arc(width/2, width/2, 300, 300, 0, PI*2);
 
-*/
-for (var i = 0; i < razors.length; i++) {
+/*for (var i = 0; i < razors.length; i++) {
 razors[i].render();
-razors[i].move() 
+razors[i].move()
 }
-
+*/
 
 }
 
@@ -41,50 +44,63 @@ function getRandomValue(a, b){
 }
 
 
-function Razor(x, y, w, h){
+function Razor(x, y, w, h, colors){
   this.v = createVector(x,y)
   this.w = w;
   this.h = h;
   this.angle = 0
   this.colors = {
-    red:255,
-    green:0,
+    red:colors,
+    green:random(0,50),
     blue:0,
     alpha:255
   }
-  this.switch = [true, false, false, true]
-
+  this.speed = 1;
   this.move = function(){
-    var seconds = (frameCount%30) 
-    if(seconds == 5){
-      this.angle = this.angle+=15 
-    } else if(seconds == 10){
-      this.angle = this.angle+=5       
-    } else if(seconds == 20){
-      this.angle = this.angle+=15       
-    }
-  if(this.angle > 360){
-    this.angle = 0
-  }
+   
 
-  if(this.angle == 90 || this.angle == 270) {
-   this.switch[1] = !this.switch[1];
-   if(this.switch[1]){ 
-    this.colors.green = 255; 
-  } else {
-    this.colors.green = 0; 
-  }
-  console.log(this.switch[1])
-  }
+    this.angle = this.angle + this.speed
+
+       if(this.angle > 80){
+        this.speed = this.speed * -1
+        this.angle = this.angle + this.speed
+       } else if(this.angle < 0){
+        this.speed = this.speed * -1
+        this.angle = this.angle + this.speed        
+       }
+
+  
+    /*
+    if(seconds == 5){
+        this.angle = this.angle+=90  
+      } else if(seconds == 10){
+        this.angle = this.angle+=90       
+      } else if(seconds == 20){
+        this.angle = this.angle+=90       
+    }
+    */
+   // this.colors.alpha = map(this.angle, 0, 90, 0, 255)
+
+ 
+    /* this.switch[1] = !this.switch[1];
+     if(this.switch[1]){ 
+      this.colors.blue = 255; 
+      this.colors.red = 0; 
+
+    } else {
+      this.colors.blue = 0; 
+      this.colors.red = 255; 
+      }
+      */
 
   }
 
   this.render = function(){
     push();
-    fill(this.colors.red, this.colors.green, this.colors.blue, this.colors.alpha)
+    fill(this.colors.red, this.colors.green, this.colors.red, this.colors.alpha)
     translate(this.v.x, this.v.y);
     rotate(radians(this.angle));
-    rect(0, 0, this.w, this.h);
+    rect(0, 0, this.w, this.h, 20);
     pop();   
   }
 }
