@@ -4,7 +4,7 @@ var counter = 0
 var spiral = 0
 
 function setup() {
-  var canvas = createCanvas(600, 600);
+  var canvas = createCanvas(600, 600, SVG);
   angleMode(DEGREES)
   a = 0;
   aAcc = .02;
@@ -40,7 +40,9 @@ function draw(){
     }
  
   pop()
-noLoop()
+  save("mySVG.svg");      // give file name
+  print ("saved svg");
+  noLoop(); 
 };
 
 

@@ -5,6 +5,7 @@ function setup() {
 xOff2 = 10000
 inc = 0.01;
 start = 0;
+x = width/2
 
 }
 
@@ -20,19 +21,27 @@ background(0);
 
 xOff1 = start;
 
-noStroke()
-fill(255)
+
+strokeWeight(1)
+beginShape()
+vertex(0, 0)
+
 for (var x = 0; x < width; x++) {
 
-  var n = map(noise(xOff1), 0, 1, 0, height);
-  var s = map(sin(xOff1), -1, 1, 150, 450);
+  stroke(192, 0, 230, x);
+  var n = map(noise(xOff1), 0, 1, 0, random(300, 600));
+  var s = map(sin(xOff1), -1, 1, 0, random(100, 300));
   var y = n+s
-  ellipse (x, y, 2,2);
+  vertex (x, y);
 
   xOff1+=inc;
+
+vertex(0, height/2)
 }
 
-start += inc;
+noLoop()
+endShape(CLOSE)
+// start += inc;
 
 
 //noLoop()
