@@ -1,16 +1,32 @@
 var myp5 = new p5(function(p) {
 
- let part, img, canvas, text;
+ let part, img, canvas, text, morePart;
  let particles = []
-  p.setup = function(){
+ let moreParticles = []
+   p.setup = function(){
   canvas = p.createCanvas(600,600);
   canvas.parent('sketch-holder');
   }
   
   p.draw = function(){  
-  p.background(0);
+  p.background(63,99,174);
+//   morePart = new Particle(100,250);
 
-  part = new Particle();
+//   if(p.random(0,1) < .1){
+//   moreParticles.push(morePart)
+//   for(let i = moreParticles.length-1; i >= 0; i--) {
+//     moreParticles[i].show()
+//     moreParticles[i].update()
+    
+//     if(moreParticles[i].finished()) {
+//         moreParticles.splice(i, 1)
+//       }
+  
+
+//   }
+// }
+part = new Particle(300,p.random(0, 350));
+
   particles.push(part)
 
     for(let i = particles.length-1; i >= 0; i--) {
@@ -20,13 +36,13 @@ var myp5 = new p5(function(p) {
         particles.splice(i, 1)
       }
     }
-  }
+}
   
 class Particle {
   
-  constructor() {
-   this.x = p.random(p.width)
-   this.y = p.random(p.width)
+  constructor(x, y) {
+   this.x = x
+   this.y = y
    this.r = p.random(10, 130);
    this.vx = p.random(-1, 1);
    this.vy = p.random(-1  , 1);

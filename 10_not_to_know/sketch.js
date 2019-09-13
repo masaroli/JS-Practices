@@ -1,37 +1,55 @@
 var arr = make2DArray(20, 20)
-var cols, rows, x, y, r, g, b, a, sum;
+var cols, rows, x, y, r, g, b, a, c, sum;
 function setup() {
-  createCanvas(600, 600);
-
-  rows = 20
-  textSize(rows)
+  var canvas = createCanvas(600, 600);
+  canvas.parent('sketch-holder');
+  rows = 40
+  textSize(rows-10)
   frameRate(2)
-sum = 0;
-}
+  textFont('Share Tech Mono')
 
-function draw() {
-  background(0);
-  translate(100, 100)
-  fill(255)
-  for (var i = 0; i < arr.length; i++) {
+    for (var i = 0; i < arr.length; i++) {
      for(var j = 0; j < arr[i].length; j++){
-      y = i * 20;
-      x = j * 20;
+      y = i * rows;
+      x = j * rows;
 
       var bitNumber = Math.round(random(0,1))
 
       arr[i][j] = new BitNumber(x, y)
-      arr[i][j].show()
+     }
+   }
+
+   c = {
+    prim: [234,55,136],
+    sec: [63,99,174]
+  }
+}
+
+function draw() {
+  sum = 0;
+    for (var i = 0; i < arr.length; i++) {
+     for(var j = 0; j < arr[i].length; j++){
       sum+=arr[i][j].bitValue
-        if(sum > 200){
-          background(200)
-        } else{
-          background(0)
-        }
-      sum = 0
      }
    } 
+  background(255,200,54);
 
+   if(sum > 200){
+      fill(c.prim[0],c.prim[1],c.prim[2])
+   } else{
+      fill(c.sec[0],c.sec[1],c.sec[2])
+   }
+ 
+    for (var i = 0; i < arr.length; i++) {
+     for(var j = 0; j < arr[i].length; j++){
+      y = i * 20;
+      x = j * 20;
+
+      arr[i][j].show()
+      arr[i][j].update()
+
+     }
+   } 
 
 }
 
@@ -43,7 +61,9 @@ class BitNumber{
     this.sum = [];
 
   }
-
+  update(){
+        this.bitValue = Math.round(random(0, 1));
+  }
   show(){
     text(this.bitValue, this.x, this.y)
   }
